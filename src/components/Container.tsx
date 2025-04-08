@@ -1,4 +1,6 @@
-export const Container = ({children}) => 
+import { ReactNode } from "react"
+
+export const Container = ({children}:{children: ReactNode}) => 
 {
     return (
         <div className='bg-gray-200

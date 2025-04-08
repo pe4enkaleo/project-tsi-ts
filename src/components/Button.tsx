@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-export const Button = (props) => {
+export const Button = (props: {size: "small"|"medium"|"large", color: "primary"|"secondary"; title: string}) => {
     const {size, color, title} = props;
     const defaultClass = "flex items-center rounded-2 h-[40px] w-[max-content] px-4 py-2";
     const classes = {

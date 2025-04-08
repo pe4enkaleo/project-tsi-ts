@@ -51,7 +51,7 @@ export const Counter = () => {
         </Button>
 
         <h3>Список:</h3>
-        <ul>
+        <ul>                             
           {items.map((item, index) => (
             <li key={index}>{item}</li>
           ))}
