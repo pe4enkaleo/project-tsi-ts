@@ -46,6 +46,7 @@ export const Counter = () => {
           size="small"
           title="Изменить видимость"
           onClick={() => setIsVisible(!isVisible)}
+  
         >
           Переключить видимость
         </Button>
