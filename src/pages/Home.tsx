@@ -13,6 +13,8 @@ interface HomeState{
     items: Item[];
     isModalOpen: boolean;
     newItem: Omit<Item, 'id'>;
+    loading: boolean;
+    error: string | null;
 }
 
 export default class Home extends Component<{}, HomeState> {
@@ -33,7 +35,9 @@ export default class Home extends Component<{}, HomeState> {
                 title: "",
                 description: "",
                 price: ""
-            }
+            },
+            loading: true,
+            error: null
         };
     }
     handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -45,28 +49,67 @@ export default class Home extends Component<{}, HomeState> {
             }
         }));
     };
-    handleAddItem = () => {
+    handleAddItem = async () => {
         const {newItem} = this.state;
 
-        if(newItem.title && newItem.description && newItem.price){
-            const itemWithId: Item = {
-                ...newItem,
-                id: Date.now()
-            };
-            this.setState(prevState => ({
-                items: [...prevState.items, itemWithId],
-                newItem: {
-                    title: "",
-                    description: "",
-                    price: ""
-                },
-                isModalOpen: false
-            }));
+        if(!newItem.title || !newItem.description || !newItem.price){
+            this.setState({ error: 'Введите данные во всех полях!'});
         }
+        try {
+            const response = await fetch('http://localhost:5000/api/products', {
+                method: 'POST',
+                headers: {
+                    'Conte-Type': 'application/json',
+                },
+                body: JSON.stringify(newItem)
+            });
+            if(!response.ok){
+                throw new Error('HTTP error! status: &{response.status}');
+            }
+            const addedItem = await response.json();
+
+            this.setState(prevState => ({
+                items: [...prevState.items, addedItem],
+                newItem: {
+                    title: '',
+                    description: '',
+                    price: ''
+                },
+                isModalOpen: false,
+                error: null
+            }));
+
+        } catch (error){
+            this.setState({
+                error: error instanceof Error ? error.message : 'Ошибка при добавлении товара'
+            });
+            }
+        
+    };
+    componentDidMount(){
+        this.fetchItems();
+    }
+    fetchItems = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/data");
+        const data = await response.json();
+        this.setState({
+            items: data,
+            loading: false
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      };
     };
 
     render(){
-        const { items, isModalOpen, newItem } = this.state;
+        const { items, isModalOpen, newItem, loading, error } = this.state;
+        if(loading){
+            return <div className = "loading">Загрузка товаров</div>;
+        }
+        if(error){
+            return <div className = "error">Ошибка: {error}</div>;
+        }
         return(
            <Container>
             <h2>Home</h2>
