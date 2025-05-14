@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import {Container} from '../components/Container';
 
 class Blog extends Component {
     render(){
         return(
-            <div><h2>Blog</h2></div>
+            <Container>
+                <div><h2>Blog</h2></div>
+            </Container>
         );
     }
 }
