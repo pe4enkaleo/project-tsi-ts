@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from "../components/Container";
 import { Button } from "../components/Button";
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 export const Counter = () => {
   const [count, setCount] = useState<number>(0);

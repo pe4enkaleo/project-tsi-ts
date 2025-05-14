@@ -112,13 +112,15 @@ export default class Home extends Component<{}, HomeState> {
             return <div className = "error">Ошибка: {error}</div>;
         }
         return(
-            
-           <Container>
+            <>
             <Helmet>
-                <title>Home</title>
+                <title>Домашняя</title>
                 <meta name = "description" content = "Домашняя страница" />
                 <meta name = "keywords" content = "список, товары, добавление" />
             </Helmet>
+           <Container>
+            
+            
             <h2>Home</h2>
             <h1>Список товаров</h1>
       
@@ -179,7 +181,7 @@ export default class Home extends Component<{}, HomeState> {
                     
                     {/* <div className="w-full h-full bg- flex items-center justify-center">HEllo</div>  */}
             </Container>
-            
+          </>
         );
     };
 }
