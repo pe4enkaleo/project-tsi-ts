@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react'
 import {Container} from '../components/Container';
 import {Button} from '../components/Button';
 import './Home.css';
+import { Helmet } from 'react-helmet';
 
 interface Item {
     id: number;
@@ -111,7 +112,13 @@ export default class Home extends Component<{}, HomeState> {
             return <div className = "error">Ошибка: {error}</div>;
         }
         return(
+            
            <Container>
+            <Helmet>
+                <title>Home</title>
+                <meta name = "description" content = "Домашняя страница" />
+                <meta name = "keywords" content = "список, товары, добавление" />
+            </Helmet>
             <h2>Home</h2>
             <h1>Список товаров</h1>
       

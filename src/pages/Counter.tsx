@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from "../components/Container";
 import { Button } from "../components/Button";
+import { Helmet } from "react-helmet";
 
 export const Counter = () => {
   const [count, setCount] = useState<number>(0);
@@ -34,6 +35,11 @@ export const Counter = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>Счётчик</title>
+        <meta name = "description" content="Страница со счётчиком и разными примерами из пар" />
+        <meta name = "keywords" content = "счётчик, добавление, кнопки" />
+      </Helmet>
       <div className="flex flex-col gap-4 w-full h-full items-center justify-center">
         <button className="text-2xl" onClick={() => setCount(count + 1)}>
           жми
